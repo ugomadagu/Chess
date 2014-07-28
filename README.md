@@ -1,4 +1,4 @@
 Chess
 =====
 
-A Chess Program.
+This is a chess program that I am using to experiment and expand my programming skills. Hopefully, by the time this program is completed, it will have AI capabilities as well as player VS player functionality.
