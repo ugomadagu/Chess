@@ -16,7 +16,7 @@ public class Bishop extends boardPieces {
 	}
 
 	private boolean isPathClear(int endRow, int endCol, boardPieces[][] boardOfPieces) {
-		//If bishop is moved diagonally upwards-left.
+		//If bishop is moved diagonally upwards-left
 		if((endRow < row) && (endCol < col)) {
 			int currentRow = row - 1;
 			int currentCol = col - 1; 
