@@ -5,4 +5,3 @@ This is a chess program that I am using to experiment and expand my programming 
 
 This is an edit to test of Hygiegia is working right.
 
-Another useless update.
