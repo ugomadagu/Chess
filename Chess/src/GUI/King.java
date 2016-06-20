@@ -7,8 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class King extends boardPieces {
-	final String BLACKKING = "BlackKing.png";
-	final String WHITEKING = "WhiteKing.png";
+	final String BLACKKING = "./Chess/BlackKing.png";
+	final String WHITEKING = "./Chess/WhiteKing.png";
 	private boolean isFirstMove = true;
 	final int BLACK = 0;
 	final int WHITE = 1;

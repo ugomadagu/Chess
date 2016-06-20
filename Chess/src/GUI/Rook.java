@@ -4,8 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Rook extends boardPieces {
-	final String BLACKROOK = "BlackRook.png";
-	final String WHITEROOK = "WhiteRook.png";
+	final String BLACKROOK = "./Chess/BlackRook.png";
+	final String WHITEROOK = "./Chess/WhiteRook.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
 

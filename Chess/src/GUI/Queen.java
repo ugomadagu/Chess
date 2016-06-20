@@ -8,8 +8,8 @@ import javax.swing.JPanel;
 
 
 public class Queen extends boardPieces {
-	final String BLACKQUEEN = "BlackQueen.png";
-	final String WHITEQUEEN = "WhiteQueen.png";
+	final String BLACKQUEEN = "./Chess/BlackQueen.png";
+	final String WHITEQUEEN = "./Chess/WhiteQueen.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
 

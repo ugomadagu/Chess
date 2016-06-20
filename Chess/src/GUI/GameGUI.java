@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+
 import GUI.boardPieces;
 import GUI.EmptySpace;
 
@@ -18,18 +20,18 @@ public class GameGUI {
 	public static int blackKingCol = 4;
 
 	//String representations for the corresponding file names for all the pieces
-	final String WHITEPAWN = "WhitePawn.png";
-	final String BLACKPAWN = "BlackPawn.png";
-	final String BLACKROOK = "BlackRook.png";
-	final String WHITEROOK = "WhiteRook.png";
-	final String BLACKKNIGHT = "BlackKnight.png";
-	final String WHITEKNIGHT = "WhiteKnight.png";
-	final String BLACKBISHOP = "BlackBishop.png";
-	final String WHITEBISHOP = "WhiteBishop.png";
-	final String BLACKQUEEN = "BlackQueen.png";
-	final String WHITEQUEEN = "WhiteQueen.png";
-	final String BLACKKING = "BlackKing.png";
-	final String WHITEKING = "WhiteKing.png";
+	final String WHITEPAWN = "./Chess/WhitePawn.png";
+	final String BLACKPAWN = "./Chess/BlackPawn.png";
+	final String BLACKROOK = "./Chess/BlackRook.png";
+	final String WHITEROOK = "./Chess/WhiteRook.png";
+	final String BLACKKNIGHT = "./Chess/BlackKnight.png";
+	final String WHITEKNIGHT = "./Chess/WhiteKnight.png";
+	final String BLACKBISHOP = "./Chess/BlackBishop.png";
+	final String WHITEBISHOP = "./Chess/WhiteBishop.png";
+	final String BLACKQUEEN = "./Chess/BlackQueen.png";
+	final String WHITEQUEEN = "./Chess/WhiteQueen.png";
+	final String BLACKKING = "./Chess/BlackKing.png";
+	final String WHITEKING = "./Chess/WhiteKing.png";
 
 
 	public GameGUI() {
@@ -78,6 +80,7 @@ public class GameGUI {
 			boardOfImages[1][i].add(new JLabel(new ImageIcon(BLACKPAWN)));
 			boardOfImages[6][i].add(new JLabel(new ImageIcon(WHITEPAWN)));
 		}
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 

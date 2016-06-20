@@ -4,8 +4,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Knight extends boardPieces{
-	final String BLACKKNIGHT = "BlackKnight.png";
-	final String WHITEKNIGHT = "WhiteKnight.png";
+	final String BLACKKNIGHT = "./Chess/BlackKnight.png";
+	final String WHITEKNIGHT = "./Chess/WhiteKnight.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
 

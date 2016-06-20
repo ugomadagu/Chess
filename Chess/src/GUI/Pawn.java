@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 import GUI.boardPieces;
 
 public class Pawn extends boardPieces {
-	final String WHITEPAWN = "WhitePawn.png";
-	final String BLACKPAWN = "BlackPawn.png";
+	final String WHITEPAWN = "./Chess/WhitePawn.png";
+	final String BLACKPAWN = "./Chess/BlackPawn.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
 	

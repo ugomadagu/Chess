@@ -6,8 +6,8 @@ import javax.swing.JPanel;
 import static java.lang.Math.abs;
 
 public class Bishop extends boardPieces {
-	final String BLACKBISHOP = "BlackBishop.png";
-	final String WHITEBISHOP = "WhiteBishop.png";
+	final String BLACKBISHOP = "./Chess/BlackBishop.png";
+	final String WHITEBISHOP = "./Chess/WhiteBishop.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
 
