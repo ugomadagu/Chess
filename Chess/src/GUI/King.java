@@ -66,6 +66,29 @@ public class King extends boardPieces {
 		return false;
 	}
 
+	boolean isMovingIntoCheck(boardPieces[][] boardOfPieces, int endRow, int endCol) {
+		int originalRow = row;
+		int originalCol = col;
+		boardPieces piecesOnEndSquare = boardOfPieces[endRow][endCol];
+		boardOfPieces[endRow][endCol] = boardOfPieces[row][col];
+		boardOfPieces[row][col] = new EmptySpace(row, col, "Empty", -1 );
+		row = endRow;
+		col = endCol;
+		if(isInCheck(boardOfPieces)) {
+			row = originalRow;
+			col = originalCol;
+			boardOfPieces[row][col] = boardOfPieces[endRow][endCol];
+			boardOfPieces[endRow][endCol] = piecesOnEndSquare;
+			return true;
+		} else {
+			row = originalRow;
+			col = originalCol;
+			boardOfPieces[row][col] = boardOfPieces[endRow][endCol];
+			boardOfPieces[endRow][endCol] = piecesOnEndSquare;
+			return false;
+		}
+	}
+
 	public void move(int endRow, int endCol, JPanel[][] boardOfImages, boardPieces[][] boardOfPieces) {
 		//Moves king on boardOfImages
 		isFirstMove = false;
@@ -97,12 +120,20 @@ public class King extends boardPieces {
 	}
 
 	public Boolean isValidMove(int endRow, int endCol, boardPieces[][] boardOfPieces) {
+		if(endRow < 0 || endCol < 0) {
+			return false;
+		}
+
 		if((color == WHITE && GameGUI.turnToMove == WHITE) || (color == BLACK && GameGUI.turnToMove == BLACK)) {
-			boolean movedDiagonallyByOneSquare = abs(endRow - row) == 1 && 
+			boolean movedDiagonallyByOneSquare = abs(endRow - row) == 1 &&
 					abs(endCol - col) == 1;
 
 			//Checks if the target square is blocked by a piece of like color
 			if(boardOfPieces[endRow][endCol].color == color) {
+				return false;
+			}
+
+			if(isMovingIntoCheck(boardOfPieces, endRow, endCol)) {
 				return false;
 			}
 
@@ -136,7 +167,7 @@ public class King extends boardPieces {
 				return true;
 			}
 
-			//If the king is not moving up, down, left, or right by one square
+			//If the king is not moving up, down, left, or right by one square or castling
 			return false;
 
 		} else {
@@ -290,7 +321,34 @@ public class King extends boardPieces {
 
 	//TODO finish this method
 	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
-		return false;
+		//Can checkmate be avoided by moving the King?
+		if(isValidMove(row - 1, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row - 1, col - 1)) {
+			return false;
+		}
+		if(isValidMove(row - 1, col, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row - 1, col)) {
+			return false;
+		}
+		if(isValidMove(row - 1, col + 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row - 1, col + 1)) {
+			return false;
+		}
+		if(isValidMove(row, col + 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row, col + 1)) {
+			return false;
+		}
+		if(isValidMove(row + 1, col + 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row + 1, col + 1)) {
+			return false;
+		}
+		if(isValidMove(row + 1, col, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row + 1, col)) {
+			return false;
+		}
+		if(isValidMove(row + 1, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row + 1, col - 1)) {
+			return false;
+		}
+		if(isValidMove(row, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row, col - 1)) {
+			return false;
+		}
+
+
+		return true;
 	}
 
 }

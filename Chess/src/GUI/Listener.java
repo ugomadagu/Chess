@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
 public class Listener implements MouseListener {
 	JPanel square;
@@ -138,7 +138,8 @@ public class Listener implements MouseListener {
 						boardOfImages[GameGUI.blackKingRow][GameGUI.blackKingCol].setBackground(Color.red);
 						//Checks if black king is in check mate
 						if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheckMate(boardOfPieces)) {
-							GameGUI.turnToMove = -1;
+							GameGUI.turnToMove = -1; //stops any player from moving because the game is over
+							JOptionPane.showMessageDialog(null, "Checkmate!");
 						}
 					} else {
 						//Reset square color (just in case it was red)
@@ -155,6 +156,7 @@ public class Listener implements MouseListener {
 						//Checks if white king is in check mate
 						if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheckMate(boardOfPieces)) {
 							GameGUI.turnToMove = -1; //stops any player from moving because the game is over
+							JOptionPane.showMessageDialog(null, "Checkmate!");
 						}
 					} else {
 						//Reset square color (just in case it was red)
