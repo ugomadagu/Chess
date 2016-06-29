@@ -68,6 +68,7 @@ public class GameGUI {
 		boardOfImages[0][6].add(new JLabel(new ImageIcon(BLACKKNIGHT)));
 		boardOfImages[0][7].add(new JLabel(new ImageIcon(BLACKROOK)));
 		boardOfImages[7][0].add(new JLabel(new ImageIcon(WHITEROOK)));
+
 		boardOfImages[7][1].add(new JLabel(new ImageIcon(WHITEKNIGHT)));
 		boardOfImages[7][2].add(new JLabel(new ImageIcon(WHITEBISHOP)));
 		boardOfImages[7][3].add(new JLabel(new ImageIcon(WHITEQUEEN)));
@@ -91,42 +92,44 @@ public class GameGUI {
 			}
 		}
 
+		//Sets up the king on the boardOfPieces array
+		boardPieces blackKing = new King(0, 4, "King", BLACK, null);
+		boardPieces whiteKing = new King(7, 4, "King", WHITE, null);
+		boardOfPieces[0][4] = blackKing;
+		boardOfPieces[7][4] = whiteKing;
+
 		//Sets up the pawns in boardOfPieces array
 		for (int i = 0; i < 8; i++) {
-			boardOfPieces[1][i] = new Pawn(1, i, "Pawn", BLACK);
-			boardOfPieces[6][i] = new Pawn(6, i, "Pawn", WHITE);
+			boardOfPieces[1][i] = new Pawn(1, i, "Pawn", BLACK, blackKing);
+			boardOfPieces[6][i] = new Pawn(6, i, "Pawn", WHITE, whiteKing);
 		}
 
 		//Sets up the rooks in boardOfPieces array
-		boardOfPieces[0][0] = new Rook(0, 0, "Rook", BLACK);
-		boardOfPieces[0][7] = new Rook(0, 7, "Rook", BLACK);
-		boardOfPieces[7][0] = new Rook(7, 0, "Rook", WHITE);
-		boardOfPieces[7][7] = new Rook(7, 7, "Rook", WHITE);
+		boardOfPieces[0][0] = new Rook(0, 0, "Rook", BLACK, blackKing);
+		boardOfPieces[0][7] = new Rook(0, 7, "Rook", BLACK, blackKing);
+		boardOfPieces[7][0] = new Rook(7, 0, "Rook", WHITE, whiteKing);
+		boardOfPieces[7][7] = new Rook(7, 7, "Rook", WHITE, whiteKing);
 
 		//Sets up the knights in boardOfPieces array
-		boardOfPieces[0][1] = new Knight(0, 1, "Knight", BLACK);
-		boardOfPieces[0][6] = new Knight(0, 6, "Knight", BLACK);
-		boardOfPieces[7][1] = new Knight(7, 1, "Knight", WHITE);
-		boardOfPieces[7][6] = new Knight(7, 6, "Knight", WHITE);
+		boardOfPieces[0][1] = new Knight(0, 1, "Knight", BLACK, blackKing);
+		boardOfPieces[0][6] = new Knight(0, 6, "Knight", BLACK, blackKing);
+		boardOfPieces[7][1] = new Knight(7, 1, "Knight", WHITE, whiteKing);
+		boardOfPieces[7][6] = new Knight(7, 6, "Knight", WHITE, whiteKing);
 
 		//Sets up the bishops in boardOfPieces array
-		boardOfPieces[0][2] = new Bishop(0, 2, "Bishop", BLACK);
-		boardOfPieces[0][5] = new Bishop(0, 5, "Bishop", BLACK);
-		boardOfPieces[7][2] = new Bishop(7, 2, "Bishop", WHITE);
-		boardOfPieces[7][5] = new Bishop(7, 5, "Bishop", WHITE);
+		boardOfPieces[0][2] = new Bishop(0, 2, "Bishop", BLACK, blackKing);
+		boardOfPieces[0][5] = new Bishop(0, 5, "Bishop", BLACK, blackKing);
+		boardOfPieces[7][2] = new Bishop(7, 2, "Bishop", WHITE, whiteKing);
+		boardOfPieces[7][5] = new Bishop(7, 5, "Bishop", WHITE, whiteKing);
 
 		//Sets up the queen on boardOfPieces array
-		boardOfPieces[0][3] = new Queen(0, 3, "Queen", BLACK);
-		boardOfPieces[7][3] = new Queen(7, 3, "Queen", WHITE);
-
-		//Sets up the king on the boardOfPieces array
-		boardOfPieces[0][4] = new King(0, 4, "King", BLACK);
-		boardOfPieces[7][4] = new King(7, 4, "King", WHITE);
+		boardOfPieces[0][3] = new Queen(0, 3, "Queen", BLACK, blackKing);
+		boardOfPieces[7][3] = new Queen(7, 3, "Queen", WHITE, whiteKing);
 
 		//Sets up empty squares in boardOfPieces array
 		for (int row = 2; row < 6; row++) {
 			for (int col = 0; col < 8; col++) {
-				boardOfPieces[row][col] = new EmptySpace(row, col, "Empty", -1 );
+				boardOfPieces[row][col] = new EmptySpace(row, col, "Empty", -1);
 			}
 		}
 

@@ -9,8 +9,8 @@ public class Rook extends boardPieces {
 	final int BLACK = 0;
 	final int WHITE = 1;
 
-	public Rook(int row, int col, String iconName, int color) {
-		super(row, col, iconName, color);
+	public Rook(int row, int col, String iconName, int color, boardPieces king) {
+		super(row, col, iconName, color, king);
 	}
 
 	//Checks to see if other pieces are in the way
@@ -103,6 +103,11 @@ public class Rook extends boardPieces {
 
 	public Boolean isValidMove(int endRow, int endCol, boardPieces[][] boardOfPieces) {
 		if((color == WHITE && GameGUI.turnToMove == WHITE) || (color == BLACK && GameGUI.turnToMove == BLACK)) {
+			//Checks if move will put king in check
+			if(isMovingIntoCheck(boardOfPieces, endRow, endCol)) {
+				return false;
+			}
+
 			//Checks if the target square is blocked by a piece of like color
 			if(boardOfPieces[endRow][endCol].color == color) {
 				return false;

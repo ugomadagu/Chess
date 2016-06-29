@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 public class EmptySpace extends boardPieces {
 	
 	public EmptySpace(int row, int col, String iconName, int color) {
-		super(row, col, iconName, color);
+		super(row, col, iconName, color, null);
 	}
 
 	//Does nothing

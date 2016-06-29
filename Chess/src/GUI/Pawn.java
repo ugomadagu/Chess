@@ -11,8 +11,8 @@ public class Pawn extends boardPieces {
 	final int BLACK = 0;
 	final int WHITE = 1;
 	
-	public Pawn(int row, int col, String iconName, int color) {
-		super(row, col, iconName, color);
+	public Pawn(int row, int col, String iconName, int color, boardPieces king) {
+		super(row, col, iconName, color, king);
 	}
 
 	public void move(int endRow, int endCol, JPanel[][]boardOfImages, boardPieces[][] boardOfPieces) {
@@ -41,6 +41,11 @@ public class Pawn extends boardPieces {
 
 	public Boolean isValidMove(int endRow, int endCol, boardPieces[][] boardOfPieces) {
 		if(color == WHITE && GameGUI.turnToMove == WHITE) {
+			//Checks if move will put king in check
+			if(isMovingIntoCheck(boardOfPieces, endRow, endCol)) {
+				return false;
+			}
+
 			//Checks the validity of double jump movement for white pawns
 			if(col == endCol && endRow == (row - 2) && isFirstMove && boardOfPieces[endRow][endCol].iconName.compareTo("Empty") == 0 &&
 					boardOfPieces[endRow + 1][endCol].iconName.compareTo("Empty") == 0) {
@@ -64,6 +69,11 @@ public class Pawn extends boardPieces {
 			if (GameGUI.turnToMove == WHITE) {
 				return false;
 			}
+			//Checks if move will put king in check
+			if(isMovingIntoCheck(boardOfPieces, endRow, endCol)) {
+				return false;
+			}
+
 			//Checks the validity of double jump movement for black pawns
 			if(col == endCol && endRow == (row + 2) && isFirstMove && boardOfPieces[endRow][endCol].iconName.compareTo("Empty") == 0 &&
 					boardOfPieces[endRow - 1][endCol].iconName.compareTo("Empty") == 0) {

@@ -13,8 +13,8 @@ public class King extends boardPieces {
 	final int BLACK = 0;
 	final int WHITE = 1;
 
-	public King(int row, int col, String iconName, int color) {
-		super(row, col, iconName, color);
+	public King(int row, int col, String iconName, int color, boardPieces king) {
+		super(row, col, iconName, color, king);
 	}
 
 	private boolean canCastle(int endRow, int endCol, boardPieces[][] boardOfPieces) {
@@ -64,29 +64,6 @@ public class King extends boardPieces {
 
 		// King is not castling
 		return false;
-	}
-
-	boolean isMovingIntoCheck(boardPieces[][] boardOfPieces, int endRow, int endCol) {
-		int originalRow = row;
-		int originalCol = col;
-		boardPieces piecesOnEndSquare = boardOfPieces[endRow][endCol];
-		boardOfPieces[endRow][endCol] = boardOfPieces[row][col];
-		boardOfPieces[row][col] = new EmptySpace(row, col, "Empty", -1 );
-		row = endRow;
-		col = endCol;
-		if(isInCheck(boardOfPieces)) {
-			row = originalRow;
-			col = originalCol;
-			boardOfPieces[row][col] = boardOfPieces[endRow][endCol];
-			boardOfPieces[endRow][endCol] = piecesOnEndSquare;
-			return true;
-		} else {
-			row = originalRow;
-			col = originalCol;
-			boardOfPieces[row][col] = boardOfPieces[endRow][endCol];
-			boardOfPieces[endRow][endCol] = piecesOnEndSquare;
-			return false;
-		}
 	}
 
 	public void move(int endRow, int endCol, JPanel[][] boardOfImages, boardPieces[][] boardOfPieces) {
@@ -346,6 +323,8 @@ public class King extends boardPieces {
 		if(isValidMove(row, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row, col - 1)) {
 			return false;
 		}
+
+
 
 
 		return true;
