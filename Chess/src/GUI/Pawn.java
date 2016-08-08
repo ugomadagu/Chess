@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 
 import GUI.boardPieces;
 
+import java.util.ArrayList;
+
 public class Pawn extends boardPieces {
 	final String WHITEPAWN = "./Chess/WhitePawn.png";
 	final String BLACKPAWN = "./Chess/BlackPawn.png";
@@ -97,10 +99,10 @@ public class Pawn extends boardPieces {
 		
 	}
 	
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 

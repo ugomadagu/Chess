@@ -2,12 +2,14 @@ package GUI;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public class Rook extends boardPieces {
 	final String BLACKROOK = "./Chess/BlackRook.png";
 	final String WHITEROOK = "./Chess/WhiteRook.png";
 	final int BLACK = 0;
 	final int WHITE = 1;
+	boolean isFirstMove = true;
 
 	public Rook(int row, int col, String iconName, int color, boardPieces king) {
 		super(row, col, iconName, color, king);
@@ -126,10 +128,10 @@ public class Rook extends boardPieces {
 		}
 	}
 	
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 }

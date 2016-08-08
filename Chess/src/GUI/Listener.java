@@ -3,6 +3,7 @@ package GUI;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -103,9 +104,9 @@ public class Listener implements MouseListener {
 			resetBoardColors();
 
 			//Leaves the king square red if it is in check
-			if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces)) {
+			if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces, new ArrayList<boardPieces>())) {
 				boardOfImages[GameGUI.whiteKingRow][GameGUI.whiteKingCol].setBackground(Color.red);
-			} else if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces)) {
+			} else if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces, new ArrayList<boardPieces>())) {
 				boardOfImages[GameGUI.blackKingRow][GameGUI.blackKingCol].setBackground(Color.red);
 			}
 		} else {
@@ -133,11 +134,14 @@ public class Listener implements MouseListener {
 						boardOfImages[currentRow][currentCol].setBackground(Color.white);
 					}
 
+
+					ArrayList<boardPieces> attackingPieces = new ArrayList<boardPieces>();
+
 					//Checks if black king is in check
-					if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces)) {
+					if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces, attackingPieces)) {
 						boardOfImages[GameGUI.blackKingRow][GameGUI.blackKingCol].setBackground(Color.red);
 						//Checks if black king is in check mate
-						if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheckMate(boardOfPieces)) {
+						if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheckMate(boardOfPieces, attackingPieces)) {
 							GameGUI.turnToMove = -1; //stops any player from moving because the game is over
 							JOptionPane.showMessageDialog(null, "Checkmate!");
 						}
@@ -149,12 +153,13 @@ public class Listener implements MouseListener {
 							boardOfImages[GameGUI.blackKingRow][GameGUI.blackKingCol].setBackground(Color.white);
 						}
 					}
+					attackingPieces.clear();
 
 					//Checks if white king is in check
-					if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces)) {
+					if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces, attackingPieces)) {
 						boardOfImages[GameGUI.whiteKingRow][GameGUI.whiteKingCol].setBackground(Color.red);
 						//Checks if white king is in check mate
-						if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheckMate(boardOfPieces)) {
+						if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheckMate(boardOfPieces, attackingPieces)) {
 							GameGUI.turnToMove = -1; //stops any player from moving because the game is over
 							JOptionPane.showMessageDialog(null, "Checkmate!");
 						}
@@ -180,9 +185,9 @@ public class Listener implements MouseListener {
 				resetBoardColors();
 				
 				//Leaves the king square red if it is in check
-				if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces)) {
+				if(boardOfPieces[GameGUI.whiteKingRow][GameGUI.whiteKingCol].isInCheck(boardOfPieces, new ArrayList<boardPieces>())) {
 					boardOfImages[GameGUI.whiteKingRow][GameGUI.whiteKingCol].setBackground(Color.red);
-				} else if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces)) {
+				} else if(boardOfPieces[GameGUI.blackKingRow][GameGUI.blackKingCol].isInCheck(boardOfPieces, new ArrayList<boardPieces>())) {
 					boardOfImages[GameGUI.blackKingRow][GameGUI.blackKingCol].setBackground(Color.red);
 				}
 				

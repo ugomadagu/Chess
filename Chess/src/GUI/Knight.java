@@ -2,6 +2,7 @@ package GUI;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public class Knight extends boardPieces{
 	final String BLACKKNIGHT = "./Chess/BlackKnight.png";
@@ -64,10 +65,10 @@ public class Knight extends boardPieces{
 		}
 	}
 
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 }

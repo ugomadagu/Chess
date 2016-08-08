@@ -5,6 +5,7 @@ import static java.lang.Math.abs;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 
 public class Queen extends boardPieces {
@@ -184,10 +185,10 @@ public class Queen extends boardPieces {
 		}
 	}
 	
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 

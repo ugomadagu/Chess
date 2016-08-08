@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public class EmptySpace extends boardPieces {
 	
@@ -17,11 +18,11 @@ public class EmptySpace extends boardPieces {
 		return true;
 	}
 	//Does nothing
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 	//Does nothing
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 }

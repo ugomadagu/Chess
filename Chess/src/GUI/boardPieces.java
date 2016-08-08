@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public abstract class boardPieces {
 	int col;
@@ -27,8 +28,8 @@ public abstract class boardPieces {
 	}
 	public abstract void move(int endRow, int endCol, JPanel[][]boardOfImages, boardPieces[][] boardOfPieces);
 	public abstract Boolean isValidMove(int endRow, int endCol, boardPieces[][] boardOfPieces);
-	public abstract boolean isInCheck(boardPieces[][] boardOfPieces);
-	public abstract boolean isInCheckMate(boardPieces[][] boardOfPieces);
+	public abstract boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces);
+	public abstract boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces);
 
 	boolean isMovingIntoCheck(boardPieces[][] boardOfPieces, int endRow, int endCol) {
 		int originalRow = row;
@@ -38,7 +39,7 @@ public abstract class boardPieces {
 		boardOfPieces[row][col] = new EmptySpace(row, col, "Empty", -1 );
 		row = endRow;
 		col = endCol;
-		if(kingPiece.isInCheck(boardOfPieces)) {
+		if(kingPiece.isInCheck(boardOfPieces, new ArrayList<boardPieces>())) {
 			row = originalRow;
 			col = originalCol;
 			boardOfPieces[row][col] = boardOfPieces[endRow][endCol];

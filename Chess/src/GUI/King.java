@@ -5,6 +5,7 @@ import static java.lang.Math.abs;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 public class King extends boardPieces {
 	final String BLACKKING = "./Chess/BlackKing.png";
@@ -19,9 +20,9 @@ public class King extends boardPieces {
 
 	private boolean canCastle(int endRow, int endCol, boardPieces[][] boardOfPieces) {
 		//If castling the black king to the left
-		if(color == BLACK && endRow == 0 && endCol == 2 && boardOfPieces[0][0].isFirstMove) {
+		if(color == BLACK && endRow == 0 && endCol == 2 && boardOfPieces[0][0].isFirstMove && isFirstMove) {
 			//Checks if the path between the king and rook is clear
-			for(int i = col; i > 0; i--) {
+			for(int i = col - 1; i > 0; i--) {
 				if(boardOfPieces[0][i].iconName != "Empty") {
 					return false;
 				}
@@ -30,9 +31,9 @@ public class King extends boardPieces {
 		}
 
 		//If castling the black king to the right
-		if(color == BLACK && endRow == 0 && endCol == 6 && boardOfPieces[0][7].isFirstMove) {
+		if(color == BLACK && endRow == 0 && endCol == 6 && boardOfPieces[0][7].isFirstMove && isFirstMove) {
 			//Checks if the path between the king and rook is clear
-			for(int i = col; i < 7; i++) {
+			for(int i = col + 1; i < 7; i++) {
 				if(boardOfPieces[0][i].iconName != "Empty") {
 					return false;
 				}
@@ -41,9 +42,9 @@ public class King extends boardPieces {
 		}
 
 		//If castling the white king to the left
-		if(color == WHITE && endRow == 7 && endCol == 2 && boardOfPieces[7][0].isFirstMove) {
+		if(color == WHITE && endRow == 7 && endCol == 2 && boardOfPieces[7][0].isFirstMove && isFirstMove) {
 			//Checks if the path between the king and rook is clear
-			for(int i = col; i > 0; i--) {
+			for(int i = col - 1; i > 0; i--) {
 				if(boardOfPieces[0][i].iconName != "Empty") {
 					return false;
 				}
@@ -52,9 +53,9 @@ public class King extends boardPieces {
 		}
 
 		//If castling the white king to the right
-		if(color == WHITE && endRow == 7 && endCol == 6 && boardOfPieces[7][7].isFirstMove) {
+		if(color == WHITE && endRow == 7 && endCol == 6 && boardOfPieces[7][7].isFirstMove && isFirstMove) {
 			//Checks if the path between the king and rook is clear
-			for(int i = col; i < 7; i++) {
+			for(int i = col + 1; i < 7; i++) {
 				if(boardOfPieces[7][i].iconName != "Empty") {
 					return false;
 				}
@@ -97,7 +98,7 @@ public class King extends boardPieces {
 	}
 
 	public Boolean isValidMove(int endRow, int endCol, boardPieces[][] boardOfPieces) {
-		if(endRow < 0 || endCol < 0) {
+		if(endRow < 0 || endCol < 0 || endRow > 7 || endCol > 7) {
 			return false;
 		}
 
@@ -152,14 +153,16 @@ public class King extends boardPieces {
 		}
 	}
 
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
+		boolean threatFound = false;
 
 		// Checks upwards for threats
 		for(int currRow = row - 1; currRow >= 0; currRow--) {
 			if(boardOfPieces[currRow][col].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 				if (boardOfPieces[currRow][col].color != color && 
 						(boardOfPieces[currRow][col].iconName.compareTo("Rook") == 0 || boardOfPieces[currRow][col].iconName.compareTo("Queen") == 0)) {
-					return true;
+					threatFound = true;
+					attackingPieces.add(boardOfPieces[currRow][col]);
 				} else {
 					break;
 				}
@@ -171,7 +174,8 @@ public class King extends boardPieces {
 			if(boardOfPieces[currRow][col].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 				if(boardOfPieces[currRow][col].color != color && 
 						(boardOfPieces[currRow][col].iconName.compareTo("Rook") == 0 || boardOfPieces[currRow][col].iconName.compareTo("Queen") == 0)) {
-					return true;
+					threatFound = true;
+					attackingPieces.add(boardOfPieces[currRow][col]);
 				} else {
 					break;
 				}
@@ -183,7 +187,8 @@ public class King extends boardPieces {
 			if(boardOfPieces[row][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 				if(boardOfPieces[row][currCol].color != color && 
 						(boardOfPieces[row][currCol].iconName.compareTo("Rook") == 0 || boardOfPieces[row][currCol].iconName.compareTo("Queen") == 0)) {
-					return true;
+					threatFound = true;
+					attackingPieces.add(boardOfPieces[row][currCol]);
 				} else {
 					break;
 				}
@@ -195,7 +200,8 @@ public class King extends boardPieces {
 			if(boardOfPieces[row][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 				if(boardOfPieces[row][currCol].color != color && 
 						(boardOfPieces[row][currCol].iconName.compareTo("Rook") == 0 || boardOfPieces[row][currCol].iconName.compareTo("Queen") == 0)) {
-					return true;
+					threatFound = true;
+					attackingPieces.add(boardOfPieces[row][currCol]);
 				} else {
 					break;
 				}
@@ -205,15 +211,17 @@ public class King extends boardPieces {
 		//Checks upward-left diagonal for threats
 		if(boardOfPieces[row][col].color == WHITE  && (row - 1 >= 0) && (col - 1 >= 0) &&  //If there is a pawn threat
 				(boardOfPieces[row - 1][col - 1].iconName.compareTo("Pawn") == 0) 
-				&& (boardOfPieces[row - 1][col - 1].color == BLACK))  {   
-			return true;
+				&& (boardOfPieces[row - 1][col - 1].color == BLACK))  {
+			threatFound = true;
+			attackingPieces.add(boardOfPieces[row - 1][col - 1]);
 		} else {
 			//Checks for threats from other pieces
 			for(int currRow = row - 1, currCol = col - 1; currRow >= 0 && currCol >= 0; currRow--, currCol--) {
 				if(boardOfPieces[currRow][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 					if(boardOfPieces[currRow][currCol].color != color && 
 							(boardOfPieces[currRow][currCol].iconName.compareTo("Bishop") == 0 || boardOfPieces[currRow][currCol].iconName.compareTo("Queen") == 0)) {
-						return true;
+						threatFound = true;
+						attackingPieces.add(boardOfPieces[currRow][currCol]);
 					} else {
 						break;
 					}
@@ -224,15 +232,17 @@ public class King extends boardPieces {
 		//Checks upward-right diagonal for threats
 		if(boardOfPieces[row][col].color == WHITE  && (row - 1 >= 0) && (col + 1 < 8) &&  //If there is a pawn threat
 				(boardOfPieces[row - 1][col + 1].iconName.compareTo("Pawn") == 0) 
-				&& (boardOfPieces[row - 1][col + 1].color == BLACK))  {   
-			return true;
+				&& (boardOfPieces[row - 1][col + 1].color == BLACK))  {
+			threatFound = true;
+			attackingPieces.add(boardOfPieces[row - 1][col + 1]);
 		} else {
 			//Checks for threats from other pieces
 			for(int currRow = row - 1, currCol = col + 1; currRow >= 0 && currCol < 8; currRow--, currCol++) {
 				if(boardOfPieces[currRow][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 					if(boardOfPieces[currRow][currCol].color != color && 
 							(boardOfPieces[currRow][currCol].iconName.compareTo("Bishop") == 0 || boardOfPieces[currRow][currCol].iconName.compareTo("Queen") == 0)) {
-						return true;
+						threatFound = true;
+						attackingPieces.add(boardOfPieces[currRow][currCol]);
 					} else {
 						break;
 					}
@@ -243,15 +253,17 @@ public class King extends boardPieces {
 		//Checks downward-left diagonal for threats
 		if(boardOfPieces[row][col].color == BLACK  && (row + 1 < 8) && (col - 1 >= 0) &&  //If there is a pawn threat
 				(boardOfPieces[row + 1][col - 1].iconName.compareTo("Pawn") == 0) 
-				&& (boardOfPieces[row + 1][col - 1].color == WHITE))  {   
-			return true;
+				&& (boardOfPieces[row + 1][col - 1].color == WHITE))  {
+			threatFound = true;
+			attackingPieces.add(boardOfPieces[row + 1][col - 1]);
 		} else {
 			//Checks for threats from other pieces
 			for(int currRow = row + 1, currCol = col - 1; currRow < 8 && currCol >= 0; currRow++, currCol--) {
 				if(boardOfPieces[currRow][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 					if(boardOfPieces[currRow][currCol].color != color && 
 							(boardOfPieces[currRow][currCol].iconName.compareTo("Bishop") == 0 || boardOfPieces[currRow][currCol].iconName.compareTo("Queen") == 0)) {
-						return true;
+						threatFound = true;
+						attackingPieces.add(boardOfPieces[currRow][currCol]);
 					} else {
 						break;
 					}
@@ -262,15 +274,17 @@ public class King extends boardPieces {
 		//Checks downward-right diagonal for threats
 		if(boardOfPieces[row][col].color == BLACK  && (row + 1 < 8) && (col + 1 < 8) &&  //If there is a pawn threat
 				(boardOfPieces[row + 1][col + 1].iconName.compareTo("Pawn") == 0) 
-				&& (boardOfPieces[row + 1][col + 1].color == WHITE))  {   
-			return true;
+				&& (boardOfPieces[row + 1][col + 1].color == WHITE))  {
+			threatFound = true;
+			attackingPieces.add(boardOfPieces[row + 1][col + 1]);
 		} else {
 			//Checks for threats from other pieces
 			for(int currRow = row + 1, currCol = col + 1; currRow < 8 && currCol < 8; currRow++, currCol++) {
 				if(boardOfPieces[currRow][currCol].iconName.compareTo("Empty") != 0) { //If the current square is not empty
 					if(boardOfPieces[currRow][currCol].color != color && 
 							(boardOfPieces[currRow][currCol].iconName.compareTo("Bishop") == 0 || boardOfPieces[currRow][currCol].iconName.compareTo("Queen") == 0)) {
-						return true;
+						threatFound = true;
+						attackingPieces.add(boardOfPieces[currRow][currCol]);
 					} else {
 						break;
 					}
@@ -291,13 +305,12 @@ public class King extends boardPieces {
 			return true;
 		}
 
-
-		//No threats were detected in any direction
-		return false;
+		return threatFound;
 	}
 
 	//TODO finish this method
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
+
 		//Can checkmate be avoided by moving the King?
 		if(isValidMove(row - 1, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row - 1, col - 1)) {
 			return false;
@@ -323,8 +336,6 @@ public class King extends boardPieces {
 		if(isValidMove(row, col - 1, boardOfPieces) && !isMovingIntoCheck(boardOfPieces,row, col - 1)) {
 			return false;
 		}
-
-
 
 
 		return true;

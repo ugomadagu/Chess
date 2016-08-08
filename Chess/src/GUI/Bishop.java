@@ -3,6 +3,8 @@ package GUI;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.util.ArrayList;
+
 import static java.lang.Math.abs;
 
 public class Bishop extends boardPieces {
@@ -126,10 +128,10 @@ public class Bishop extends boardPieces {
 		}
 	}
 	
-	public boolean isInCheck(boardPieces[][] boardOfPieces) {
+	public boolean isInCheck(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
-	public boolean isInCheckMate(boardPieces[][] boardOfPieces) {
+	public boolean isInCheckMate(boardPieces[][] boardOfPieces, ArrayList<boardPieces> attackingPieces) {
 		return false;
 	}
 }
