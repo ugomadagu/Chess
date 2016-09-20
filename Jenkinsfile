@@ -1,5 +1,6 @@
 #!groovy
 
 node {
-    sh "echo $env.COMMENT"
+    sh "echo ${COMMENT}"
+    sh "env | sort"
 }
