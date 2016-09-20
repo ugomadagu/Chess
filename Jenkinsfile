@@ -1,7 +1,5 @@
 #!groovy
 
 node {
-    sh 'ls .'
-    sh 'echo I am the son of Rah!!!'
-    sh 'echo Jdfsf'
+    sh "echo $env.COMMENT"
 }
