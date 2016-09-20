@@ -1,5 +1,5 @@
 #!groovy
 
 node {
-    sh 'echo $env.COMMENT"
+    sh "echo $env.COMMENT"
 }
