@@ -1,6 +1,6 @@
 #!groovy
 
 node {
-    sh "env | sort"
-    sh "echo $COMMENT"
+    String fileContents = new File('/tmp/params.properties').text
+    sh "echo $fileContents"
 }
