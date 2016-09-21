@@ -5,6 +5,6 @@ node {
     //sh "echo $fileContents"
     sh "pwd"
     
-    String fileContents = new File('test.txt').text
+    String fileContents = readFile('test.txt').text
     sh "echo fileContents"
 }
