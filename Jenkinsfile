@@ -7,7 +7,7 @@ node {
     String contents = readFile("params.properties")
     //echo "$contents"
     
-    if($contents ==~ .*ok\W+to\W+test.*) {
+    if($contents ==~ ".*ok\W+to\W+test.*") {
         echo "I am working."
     }
 }
