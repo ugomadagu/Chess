@@ -11,9 +11,9 @@ node {
         echo "I am ok to test."
     } else if("$contents" ==~ "deploy\\W+to\\W+minc\\W*") {
         echo "I am deploying to MinC."
-    } if("$contents" ==~ "deploy\W+to\W+prod\W+like\W*") {
+    } else if("$contents" ==~ "deploy\\W+to\\W+prod\\W+like\\W*") {
         echo "I am ok to deploy to prod-like."
-    } if("$contents" ==~ "deploy\W+to\W+prod\W*") {
+    } else if("$contents" ==~ "deploy\\W+to\\W+prod\\W*") {
         echo "I am ok to deploy to prod."
     }
 }
