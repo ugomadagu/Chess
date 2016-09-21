@@ -7,6 +7,6 @@ node {
     //sh "echo $fileContents"
     
     sh "mv /tmp/params.properties `pwd`"
-    String contents = readFile(params.properties)
+    String contents = readFile("params.properties")
     echo "$contents"
 }
