@@ -8,6 +8,12 @@ node {
     //echo "$contents"
     
     if("$contents" ==~ ".*ok\\W+to\\W+test.*") {
-        echo "I am working."
+        echo "I am ok to test."
+    } else if("$contents" ==~ "deploy\\W+to\\W+minc\\W*") {
+        echo "I am deploying to MinC."
+    } if("$contents" ==~ "deploy\W+to\W+prod\W+like\W*") {
+        echo "I am ok to deploy to prod-like."
+    } if("$contents" ==~ "deploy\W+to\W+prod\W*") {
+        echo "I am ok to deploy to prod."
     }
 }
