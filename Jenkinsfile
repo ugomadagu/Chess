@@ -11,9 +11,9 @@ node {
     }
     
     //Checks out the latest code, creates a local branch "MergeTestBranch" and tries to merge there
+    // If merge is not successfull, git will complain and the job will fail
     checkout scm
     sh "git fetch origin"
     sh "git checkout -b MergeTestBranch origin/$env.BRANCH_NAME"
     sh "git merge origin/master"
-    sh "cat README.md"
 }
