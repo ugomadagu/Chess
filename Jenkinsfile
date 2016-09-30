@@ -3,7 +3,7 @@
 node {
     //sh "env | sort"
     
-    // This block delets the .git repo if it exists.
+    // This block deletes the .git repo if it exists.
     // If we don't, then we will only be able to make the "mergeTest" branch once.
     if(fileExists ('.git')) {
       sh "rm -rf .git"
