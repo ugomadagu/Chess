@@ -2,6 +2,7 @@
 
 node {
     sh "env | sort"
+    dh "rm -rf .git"
     checkout scm
     sh "git fetch origin"
     //sh "git checkout -b MergeTest$env.BUILD_ID origin/MergeTest"
