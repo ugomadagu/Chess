@@ -7,7 +7,6 @@ node {
     // If we don't do this, then we will only be able to make the "MergeTestBranch" branch once.
     if(fileExists ('.git')) {
       sh "rm -rf .git"
-      echo "file removed."
     }
     
     //Checks out the latest code, creates a local branch "MergeTestBranch" and tries to merge there
