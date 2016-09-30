@@ -2,7 +2,7 @@
 
 node {
     sh "env | sort"
-    //checkout scm
+    checkout scm
     sh "ls -a"
     sh "git fetch origin"
     sh "git checkout -b MergeTest origin/MergeTest"
