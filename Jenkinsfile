@@ -2,7 +2,7 @@
 
 node {
     //sh "env | sort"
-    if(fileExists '.git') {
+    if(fileExists ('.git')) {
       sh "rm -rf .git"
       echo "file removed."
     }
