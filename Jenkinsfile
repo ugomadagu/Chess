@@ -8,14 +8,14 @@ node {
         def isPullRequest = true
         sh "echo $env.BRANCH_NAME | tr '[:upper:]' '[:lower:]' > branchnamefile"
         def branchName=readFile('branchnamefile').trim()
-        String contents = readFile("params.properties")
         
         try {
                 sh "mv /tmp/params.properties `pwd`"
         } catch (err) {
                 isPullRequest = false
         }
-        echo "$isPullRequest"
+        
+        String contents = readFile("params.properties")
         
         try {
                 if(isPullRequest == true) {
