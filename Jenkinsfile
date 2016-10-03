@@ -18,7 +18,7 @@ node {
         
         try {
                 if(isPullRequest == true) {
-                        if("$branchName" == "dev") { //If this is a pull request to dev
+                        if("$branchName" != "dev") { //If this is a pull request to dev
                             echo "pushing to dev"
                             stage "Local Merge"
                             // This block deletes the .git repo if it exists.
@@ -44,8 +44,8 @@ node {
                             stage "Push Images"
                             //push image - brianaslateradm/blueocean
                             //sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
-                            sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
-                            sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                            //sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                            //sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
                         } else { //If this is a pull request to master
                             echo "pushing to master"
                             stage "Local Merge"
