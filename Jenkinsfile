@@ -31,8 +31,9 @@ node {
                             //Checks out the latest code, creates a local branch "MergeTestBranch" and tries to merge there
                             // If merge is not successfull, git will complain and the job will fail
                             checkout scm
+                            sh "git remote -v"
                             sh "git fetch origin"
-                            sh "git checkout -b MergeTestBranch origin/$branchName"
+                            sh "git checkout -b MergeTestBranch $branchName"
                             sh "git merge origin/dev"
                             
                             stage "Build Image"
