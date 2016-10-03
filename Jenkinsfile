@@ -12,6 +12,7 @@ node {
         try {
                 sh "mv /tmp/params.properties `pwd`"
         } catch (err) {
+                echo "FILE IS NOT PRESENT!!!"
                 isPullRequest = false
         }
         
