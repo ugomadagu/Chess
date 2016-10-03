@@ -8,14 +8,13 @@ node {
         def isPullRequest = true
         sh "echo $env.BRANCH_NAME | tr '[:upper:]' '[:lower:]' > branchnamefile"
         def branchName=readFile('branchnamefile').trim()
-        
+        String contents = ""
         try {
                 sh "mv /tmp/params.properties `pwd`"
+                contents = readFile("params.properties")
         } catch (err) {
                 isPullRequest = false
         }
-        
-        String contents = readFile("params.properties")
         
         try {
                 if(isPullRequest == true) {
@@ -31,14 +30,13 @@ node {
                             //Checks out the latest code, creates a local branch "MergeTestBranch" and tries to merge there
                             // If merge is not successfull, git will complain and the job will fail
                             checkout scm
-                            sh "git remote -v"
                             sh "git fetch origin"
-                            sh "git checkout -b MergeTestBranch $branchName"
+                            sh "git checkout -b MergeTestBranch origin/$env.BRANCH_NAME"
                             sh "git merge origin/dev"
                             
                             stage "Build Image"
                             sh ('sudo usermod -aG docker jenkins && groups')
-                            def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
+                            //def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
                             
                             stage "Unit tests"
                             //Place holder
@@ -61,8 +59,8 @@ node {
                             // If merge is not successfull, git will complain and the job will fail
                             checkout scm
                             sh "git fetch origin"
-                            sh "git checkout -b MergeTestBranch origin/$branchName"
-                            sh "git merge origin/dev"
+                            sh "git checkout -b MergeTestBranch origin/$env.BRANCH_NAME"
+                            sh "git merge origin/master"
                             
                             stage "Deploy"
                                     if("$contents" ==~ ".*ok\\W+to\\W+test.*") {
@@ -103,5 +101,6 @@ node {
             throw err
         }
 }
+
 
 
