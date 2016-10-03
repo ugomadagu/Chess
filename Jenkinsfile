@@ -37,7 +37,7 @@ node {
                             
                             stage "Build Image"
                             sh ('sudo usermod -aG docker jenkins && groups')
-                            def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
+                            //def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
                             
                             stage "Unit tests"
                             //Place holder
