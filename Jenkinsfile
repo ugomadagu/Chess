@@ -8,6 +8,7 @@ node {
         def isPullRequest = true
         sh "echo $env.BRANCH_NAME | tr '[:upper:]' '[:lower:]' > branchnamefile"
         def branchName=readFile('branchnamefile').trim()
+        String contents = readFile("params.properties")
         
         try {
                 sh "mv /tmp/params.properties `pwd`"
@@ -63,8 +64,6 @@ node {
                             sh "git merge origin/dev"
                             
                             stage "Deploy"
-                                    String contents = readFile("params.properties")
-                                    
                                     if("$contents" ==~ ".*ok\\W+to\\W+test.*") {
                                         echo "I am ok to test."
                                         
