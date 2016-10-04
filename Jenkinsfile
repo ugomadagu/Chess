@@ -39,16 +39,37 @@ node {
                             
                             stage "Build Image"
                             sh ('sudo usermod -aG docker jenkins && groups')
-                            //def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
+                            def environment = docker.build "wine-spring-service:$branchName-$env.BUILD_ID" 
                             
                             stage "Unit tests"
-                            //Place holder
+                            
+                            environment.inside {
+                              stage 'Unit Tests'
+                                  sh 'mvn install'
+
+                              if (env.BRANCH_NAME == 'master') {
+                                 //temporarily commented out bc it's annoying
+                                  // stage 'Manual Gate'
+                                  //     def userInput = input(
+                                  //         id: 'userInput', message: 'Continue to next stage?', submitter: "GSA*Pipeline"
+
+                                  //         // , parameters: [
+                                  //         // [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                  //         // ]
+                                  //     ) 
+
+                                  stage 'Functional Tests'
+                                  //Nothing here yet
+                              }
+
+                              junit 'target/surefire-reports/TEST-dbDemo.PgBootApplicationTests.xml'
+                           }
                              
                             stage "Push Images"
                             //push image - brianaslateradm/blueocean
-                            //sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
-                            //sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
-                            //sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                            sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
+                            sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                            sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
                         } else if("$targetBranch" == "master") { //If this is a pull request to master
                             echo "pushing to master"
                             stage "Local Merge"
@@ -88,13 +109,33 @@ node {
                         sh "echo $branchName"
                         
                         stage "Unit tests"
-                        //Place holder
+                            environment.inside {
+                              stage 'Unit Tests'
+                                  sh 'mvn install'
+
+                              if (env.BRANCH_NAME == 'master') {
+                                 //temporarily commented out bc it's annoying
+                                  // stage 'Manual Gate'
+                                  //     def userInput = input(
+                                  //         id: 'userInput', message: 'Continue to next stage?', submitter: "GSA*Pipeline"
+
+                                  //         // , parameters: [
+                                  //         // [$class: 'TextParameterDefinition', defaultValue: 'uat1', description: 'Target', name: 'target']
+                                  //         // ]
+                                  //     ) 
+
+                                  stage 'Functional Tests'
+                                  //Nothing here yet
+                              }
+
+                              junit 'target/surefire-reports/TEST-dbDemo.PgBootApplicationTests.xml'
+                           }
                          
                         stage "Push Images" 
                         //push image - brianaslateradm/blueocean
-                        //sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
-                        //sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
-                        //sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                        sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
+                        sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
+                        sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
                 }
                 
                 
