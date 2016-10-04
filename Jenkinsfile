@@ -8,17 +8,20 @@ node {
         def isPullRequest = true
         sh "echo $env.BRANCH_NAME | tr '[:upper:]' '[:lower:]' > branchnamefile"
         def branchName=readFile('branchnamefile').trim()
-        String contents = ""
+        String comment = ""
+        String targetBranch = ""
         try {
-                sh "mv /tmp/params.properties `pwd`"
-                contents = readFile("params.properties")
+                sh "/tmp/targetFileGHPRB.properties `pwd`"
+                sh "/tmp/commentFileGHPRB.properties `pwd`"
+                comment = readFile("commentFileGHPRB.properties")
+                targetBranch = readFile("targetFileGHPRB.properties")
         } catch (err) {
                 isPullRequest = false
         }
         
         try {
                 if(isPullRequest == true) {
-                        if("$branchName" != "dev") { //If this is a pull request to dev
+                        if("$targetBranch" == "dev") { //If this is a pull request to dev
                             echo "pushing to dev"
                             stage "Local Merge"
                             // This block deletes the .git repo if it exists.
@@ -46,7 +49,7 @@ node {
                             //sh "docker pull dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean"
                             //sh "docker tag wine-spring-service:$branchName-$env.BUILD_ID dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
                             //sh "docker push dockerhub-app-01.east1e.nonprod.dmz/brianaslateradm/blueocean:$branchName-$env.BUILD_ID"
-                        } else { //If this is a pull request to master
+                        } else if("$targetBranch" == "master") { //If this is a pull request to master
                             echo "pushing to master"
                             stage "Local Merge"
                             // This block deletes the .git repo if it exists.
@@ -63,16 +66,16 @@ node {
                             sh "git merge origin/master"
                             
                             stage "Deploy"
-                                    if("$contents" ==~ ".*ok\\W+to\\W+test.*") {
+                                    if("$comment" ==~ ".*ok\\W+to\\W+test.*") {
                                         echo "I am ok to test."
                                         
-                                    } else if("$contents" ==~ "deploy\\W+to\\W+minc\\W*") {
+                                    } else if("$comment" ==~ "deploy\\W+to\\W+minc\\W*") {
                                         echo "I am deploying to MinC."
                                         
-                                    } else if("$contents" ==~ "deploy\\W+to\\W+prod\\W+like\\W*") {
+                                    } else if("$comment" ==~ "deploy\\W+to\\W+prod\\W+like\\W*") {
                                         echo "I am ok to deploy to prod-like."
                                         
-                                    } else if("$contents" ==~ "deploy\\W+to\\W+prod\\W*") {
+                                    } else if("$comment" ==~ "deploy\\W+to\\W+prod\\W*") {
                                         echo "I am ok to deploy to prod."
                                     }
                             
