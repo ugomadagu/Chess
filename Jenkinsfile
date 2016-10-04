@@ -11,8 +11,8 @@ node {
         String comment = ""
         String targetBranch = ""
         try {
-                sh "/tmp/targetFileGHPRB.properties `pwd`"
-                sh "/tmp/commentFileGHPRB.properties `pwd`"
+                sh "mv /tmp/targetFileGHPRB.properties `pwd`"
+                sh "mv /tmp/commentFileGHPRB.properties `pwd`"
                 comment = readFile("commentFileGHPRB.properties")
                 targetBranch = readFile("targetFileGHPRB.properties")
         } catch (err) {
