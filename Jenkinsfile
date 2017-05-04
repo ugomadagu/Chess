@@ -3,7 +3,7 @@
 node {
     
     stage("Start") {
-        sh "echo hello cuz1jhhjgegr"
+        sh "echo hello cuz1jhhjgeghjghr"
     }
 }
 
