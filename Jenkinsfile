@@ -2,7 +2,9 @@
 
 node {
     
-    sh "echo hello cuz1jhhjgegr"
+    stage("Start") {
+        sh "echo hello cuz1jhhjgegr"
+    }
 }
 
 def merge() {
