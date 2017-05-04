@@ -2,7 +2,7 @@
 
 node {
     
-    sh "echo hello"
+    sh "echo hello fam"
 }
 
 def merge() {
