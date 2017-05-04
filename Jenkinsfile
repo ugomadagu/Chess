@@ -3,8 +3,9 @@
 node {
     
     sh "echo hello"
-    
-    def merge() {
+}
+
+def merge() {
         
         //sh "env | sort"
 
@@ -21,4 +22,3 @@ node {
         sh "git checkout -b MergeTestBranch origin/$env.BRANCH_NAME"
         sh "git merge origin/master"
     }
-}
